@@ -1,0 +1,29 @@
+{
+  "name": "Base Data Ingest",
+  "profile": "base",
+  "version": "1.0.0",
+  "description": "Fetch and normalize a small dataset using standard capabilities.",
+  "steps": [
+    {
+      "id": "download",
+      "uses": "net/http-get",
+      "with": {
+        "url": "https://example.com/data.csv"
+      }
+    },
+    {
+      "id": "normalize",
+      "uses": "data/normalize",
+      "needs": [
+        "download"
+      ],
+      "with": {
+        "format": "csv",
+        "columns": [
+          "id",
+          "value"
+        ]
+      }
+    }
+  ]
+}

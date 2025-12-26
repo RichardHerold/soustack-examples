@@ -1,0 +1,36 @@
+{
+  "name": "Fan-out Processing",
+  "profile": "scalable",
+  "version": "1.0.0",
+  "description": "Idempotent fan-out processing recipe suited for horizontal scaling.",
+  "steps": [
+    {
+      "id": "enqueue",
+      "uses": "queue/enqueue-batch",
+      "with": {
+        "source": "input-items"
+      }
+    },
+    {
+      "id": "worker",
+      "uses": "compute/worker",
+      "needs": [
+        "enqueue"
+      ],
+      "with": {
+        "retry": 3,
+        "idempotent": true
+      }
+    },
+    {
+      "id": "aggregate",
+      "uses": "data/aggregate",
+      "needs": [
+        "worker"
+      ],
+      "with": {
+        "strategy": "reduce"
+      }
+    }
+  ]
+}

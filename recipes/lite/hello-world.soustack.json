@@ -1,0 +1,15 @@
+{
+  "name": "Hello Lite",
+  "profile": "lite",
+  "version": "1.0.0",
+  "description": "Minimal hello world recipe for lite profile.",
+  "steps": [
+    {
+      "id": "echo",
+      "uses": "core/echo",
+      "with": {
+        "message": "Hello from lite profile!"
+      }
+    }
+  ]
+}
