@@ -1,0 +1,35 @@
+{
+  "name": "Latency Sensitive Workflow",
+  "profile": "timed",
+  "version": "1.0.0",
+  "description": "Recipe designed for bounded latency with explicit deadlines.",
+  "steps": [
+    {
+      "id": "fetch",
+      "uses": "net/http-get",
+      "with": {
+        "url": "https://example.com/ping"
+      }
+    },
+    {
+      "id": "compute",
+      "uses": "compute/quick-transform",
+      "needs": [
+        "fetch"
+      ],
+      "with": {
+        "deadline_ms": 500
+      }
+    },
+    {
+      "id": "respond",
+      "uses": "core/echo",
+      "needs": [
+        "compute"
+      ],
+      "with": {
+        "message": "Response within budget"
+      }
+    }
+  ]
+}
